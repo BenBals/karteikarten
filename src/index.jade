@@ -1,0 +1,47 @@
+doctype html
+body
+  head
+    title karteikarten
+    meta(charset='utf-8')
+    meta(name="viewport", content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no")
+    
+    link(href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css")
+
+    link(rel="stylesheet", type="text/css", href="style/main.min.css" inline)
+
+  body
+    h1 karteikarten
+
+    .cardScreen
+      .card
+        .cardContentWrapper
+          .cardContent
+            .front.dpn
+              span.q
+              br
+              br
+              a.btn.btnSmall.checkBtn Check
+            .back.dpn
+              span.a
+              br
+              br
+              a.btn.btnSmall.btnRight Richtig
+              a.btn.btnSmall.btnWrong Falsch
+            .allDone.dpn
+              span Du hast alle karteikarten beantwortet
+              br
+              br
+              a.btn.btnUnderline.btnAgainAll Nochmal mit allen Karten
+              br
+              br
+              a.btn.btnUnderline.btnAgainWrong Nochmal mit den falschen Karten
+            .selectData
+              span Gib die URL der Datenquelle ein
+              input.jsonUrl
+              br
+              br
+              a.btn.btnSmall.btnSubmitJson Los
+
+
+    script(inline, src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+    script(inline, src="script/main.js")
