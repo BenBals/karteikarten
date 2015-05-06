@@ -13,16 +13,25 @@
 			<div class="card">
 				<div class="cardContentWrapper">
 					<div class="cardContent">
-						<div class="front dpn"><span class="q"></span><br><br><a class="btn btnSmall checkBtn">Check</a></div>
-						<div class="back dpn"><span class="a"></span><br><br><a class="btn btnSmall btnRight">Richtig</a><a class="btn btnSmall btnWrong">Falsch</a></div>
+						<div class="play">
+							<div class="front dpn"><span class="q"></span><br><br><a class="btn btnSmall checkBtn">Check</a></div>
+							<div class="back dpn"><span class="a"></span><br><br><a class="btn btnSmall btnRight">Richtig</a><a class="btn btnSmall btnWrong">Falsch</a></div>
+						</div>
 						<div class="allDone dpn"><span>Du hast alle karteikarten beantwortet</span><br><br><a class="btn btnUnderline btnAgainAll">Nochmal mit allen Karten</a><br><br><a class="btn btnUnderline btnAgainWrong">Nochmal mit den falschen Karten</a></div>
 						<div class="selectData"><span>Gib die URL der Datenquelle ein</span>
-							<input class="jsonUrl"><br><br><a class="btn btnSmall btnSubmitJson">Los</a>
+							<input class="jsonUrl"><br><span>oder wähle eine von unseren Datenquellen aus</span>
+							<select name="dataSelect" class="dataSelect">
+								<option value="">-</option>
+								<option value="https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/04e59206821d9edb4642c02517382ce7cece3d5e/alleLektionen.json">Actio - Stammformen - Alle Lektionen</option>
+								<option value="https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/ec9f6656897c486d2bee4666381100d475f91be8/vok23.json">Actio - Vokabeln - Lektion 23</option>
+								<option value="https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/69c981d493b6340fcbc670d8e7cd2742be17ee51/vok25.json">Actio - Vokabeln - Lektion 25</option>
+							</select><br><br><a class="btn btnSmall btnSubmitJson">Los</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 		<script inline src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script inline src="script/main.js"></script>
 	</body>

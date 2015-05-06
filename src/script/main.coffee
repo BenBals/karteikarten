@@ -1,6 +1,8 @@
 # init
-console.log 'karteikarten v0.1'
-# $( document ).ready -> init()
+console.log 'karteikarten v0.1.5'
+$( document ).ready ->
+  # toastr config
+  toastr.options.preventDuplicates = true
 
 
 # data variables
@@ -8,6 +10,7 @@ console.log 'karteikarten v0.1'
 # inits the data variabels
 data = {}
 data.allCards = []
+data.random = false
 
 
 # main functions
@@ -43,9 +46,21 @@ init = (wichCards) ->
   setTextOnCard()
 
 loadData = ->
-  url = $('input.jsonUrl').val()
+  url = ''
+  if $('.dataSelect').val() is ''
+    url = $('input.jsonUrl').val()
+  else
+    url = $('.dataSelect').val()
+
+  console.log url
+  toastr.info('Laden...')
   $.getJSON url, (jsonData) ->
-    data.allCards = jsonData
+    console.log typeof jsonData
+    if jsonData instanceof Array
+      data.allCards = jsonData
+    else
+      data.allCards = jsonData.data.shuffle()
+      data.random = jsonData.config.random
     console.log jsonData
     flipCard()
     setTimeout ->
@@ -54,9 +69,13 @@ loadData = ->
       $('.back').hide()
       $('.allDone').hide()
       $('.selectData').hide()
+      # $('.totalCardN').html data.allCards.length
     ,500
   .fail ->
-    alert('Es ist ein Fehler beim laden der Daten aufgetreten. Bitte lade die Seite neu und versuche es noch einmal')
+    toastr.clear()
+    toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL bzw. die Datenquelle.')
+  .done ->
+    toastr.clear()
   
 
 # gets the next card (swing out and in, fires of the flipCard() and setTextOnCard() functions and increases data.currCard)
@@ -69,8 +88,13 @@ nextCard = ->
       $('.card').removeClass 'swingIn'
     ,1000
   ,1000
+
+  if data.random
+    data.unansweredCards.shuffle()
+
   flipCard()
   data.currCard++
+  # $('.currentCardN').html data.currCard
   setTimeout ->
     setTextOnCard()
   ,500
@@ -145,6 +169,22 @@ setTextOnCard = ->
       $('.btnAgainWrong').hide()
     else
       $('.btnAgainWrong').show()
+
+
+# Proto improvements
+
+Array::shuffle = ->
+  i = @length
+  j = undefined
+  temp = undefined
+  if i == 0
+    return this
+  while --i
+    j = Math.floor(Math.random() * (i + 1))
+    temp = @[i]
+    @[i] = @[j]
+    @[j] = temp
+  this
 
 
 # Event listeners
