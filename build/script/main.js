@@ -1,10 +1,12 @@
-var answer, answerRight, answerWrong, check, data, flipCard, flipElement, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, setTextOnCard;
+var animationTime, answer, answerRight, answerWrong, check, data, flipCard, flipElement, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, setTextOnCard;
 
 console.log('karteikarten v0.1.5');
 
 $(document).ready(function() {
   return toastr.options.preventDuplicates = true;
 });
+
+animationTime = 500;
 
 data = {};
 
@@ -13,16 +15,17 @@ data.allCards = [];
 data.random = false;
 
 answer = function() {
-  data.lastAnsweredCard = data.unansweredCards.splice(0, 1)[0];
-  return nextCard();
+  return data.lastAnsweredCard = data.unansweredCards.splice(0, 1)[0];
 };
 
 answerRight = function() {
-  return data.rightCards.push(data.lastAnsweredCard);
+  data.rightCards.push(data.lastAnsweredCard);
+  return nextCard();
 };
 
 answerWrong = function() {
-  return data.wrongCards.push(data.lastAnsweredCard);
+  data.wrongCards.push(data.lastAnsweredCard);
+  return nextCard(true);
 };
 
 check = function() {
@@ -67,7 +70,7 @@ loadData = function() {
       $('.back').hide();
       $('.allDone').hide();
       return $('.selectData').hide();
-    }, 500);
+    }, animationTime / 2);
   }).fail(function() {
     toastr.clear();
     return toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL bzw. die Datenquelle.');
@@ -76,15 +79,20 @@ loadData = function() {
   });
 };
 
-nextCard = function() {
-  $('.card').addClass('swingOut');
+nextCard = function(wrongBool) {
+  if (wrongBool) {
+    $('.card').addClass('swingOut-wrong');
+  } else {
+    $('.card').addClass('swingOut-right');
+  }
   setTimeout(function() {
-    $('.card').removeClass('swingOut');
+    $('.card').removeClass('swingOut-wrong');
+    $('.card').removeClass('swingOut-right');
     $('.card').addClass('swingIn');
     return setTimeout(function() {
       return $('.card').removeClass('swingIn');
-    }, 1000);
-  }, 1000);
+    }, animationTime);
+  }, animationTime);
   if (data.random) {
     data.unansweredCards.shuffle();
   }
@@ -92,7 +100,7 @@ nextCard = function() {
   data.currCard++;
   return setTimeout(function() {
     return setTextOnCard();
-  }, 500);
+  }, animationTime / 2);
 };
 
 playAgian = function() {
@@ -100,28 +108,28 @@ playAgian = function() {
   return setTimeout(function() {
     $('.allDone').hide();
     return $('.front').show();
-  }, 500);
+  }, animationTime / 2);
 };
 
 playAgainAllCards = function() {
   flipCard();
   return setTimeout(function() {
     return init();
-  }, 500);
+  }, animationTime / 2);
 };
 
 playAgainWrongCards = function() {
   flipCard();
   return setTimeout(function() {
     return init(true);
-  }, 500);
+  }, animationTime / 2);
 };
 
 flipElement = function(selector) {
   $(selector).addClass('flip');
   return setTimeout(function() {
     return $(selector).removeClass('flip');
-  }, 1000);
+  }, animationTime);
 };
 
 flipCard = function() {
@@ -130,7 +138,7 @@ flipCard = function() {
   return setTimeout(function() {
     $('.front').toggle();
     return $('.back').toggle();
-  }, 500);
+  }, animationTime / 2);
 };
 
 setTextOnCard = function() {

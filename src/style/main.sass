@@ -2,6 +2,8 @@ $blue: #21a1e1
 $rightGreen: #4CD964
 $wrongRed: #FF3B30
 
+$animationTime: 0.5s
+
 body
   padding: 0
   margin: 0
@@ -88,14 +90,19 @@ h1
 
 // Animation
 .flip
-  animation: flip 1s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+  animation: flip $animationTime cubic-bezier(0.455, 0.03, 0.515, 0.955)
 
 .swingOut
-  animation: swingOut 1s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+  animation: swingOut $animationTime cubic-bezier(0.455, 0.03, 0.515, 0.955)
 
 .swingIn
-  animation: swingIn 1s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+  animation: swingIn $animationTime cubic-bezier(0.455, 0.03, 0.515, 0.955)
 
+.swingOut-right
+  animation: swingOut $animationTime cubic-bezier(0.455, 0.03, 0.515, 0.955)
+
+.swingOut-wrong
+  animation: swingOut-wrong $animationTime cubic-bezier(0.455, 0.03, 0.515, 0.955)
 
 @keyframes flip
   0%
@@ -115,6 +122,14 @@ h1
     transform: translateX(0%)
   100%
     transform: translateX(500%)
+
+@keyframes swingOut-wrong
+  0%
+    transform: translateX(0%)
+  100%
+    transform: translateX(-500%)
+
+
 
 @keyframes swingIn
   0%

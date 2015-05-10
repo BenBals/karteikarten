@@ -4,6 +4,9 @@ $( document ).ready ->
   # toastr config
   toastr.options.preventDuplicates = true
 
+# config variables
+animationTime = 500
+
 
 # data variables
 
@@ -18,13 +21,14 @@ data.random = false
 # handels the data movement behind answering and moves the card to the appropriate stack and fires of nextCard()
 answer = ->
   data.lastAnsweredCard = data.unansweredCards.splice(0, 1)[0]
-  nextCard()
 
 answerRight = ->
   data.rightCards.push(data.lastAnsweredCard)
+  nextCard()
 
 answerWrong = ->
   data.wrongCards.push(data.lastAnsweredCard)
+  nextCard(true)
 
 
 # handels the event from the check button and flips the card
@@ -70,7 +74,7 @@ loadData = ->
       $('.allDone').hide()
       $('.selectData').hide()
       # $('.totalCardN').html data.allCards.length
-    ,500
+    ,animationTime/2
   .fail ->
     toastr.clear()
     toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL bzw. die Datenquelle.')
@@ -79,15 +83,19 @@ loadData = ->
   
 
 # gets the next card (swing out and in, fires of the flipCard() and setTextOnCard() functions and increases data.currCard)
-nextCard = ->
-  $('.card').addClass 'swingOut'
+nextCard = (wrongBool) ->
+  if wrongBool
+    $('.card').addClass 'swingOut-wrong'
+  else
+    $('.card').addClass 'swingOut-right'
   setTimeout ->
-    $('.card').removeClass 'swingOut'
+    $('.card').removeClass 'swingOut-wrong'
+    $('.card').removeClass 'swingOut-right'
     $('.card').addClass 'swingIn'
     setTimeout ->
       $('.card').removeClass 'swingIn'
-    ,1000
-  ,1000
+    ,animationTime
+  ,animationTime
 
   if data.random
     data.unansweredCards.shuffle()
@@ -97,7 +105,7 @@ nextCard = ->
   # $('.currentCardN').html data.currCard
   setTimeout ->
     setTextOnCard()
-  ,500
+  ,animationTime/2
 
 
 # handels the play again buttons, sets the data and fires of the reset and restarts the game
@@ -106,19 +114,19 @@ playAgian = ->
   setTimeout ->
     $('.allDone').hide()
     $('.front').show()
-  ,500
+  ,animationTime/2
 
 playAgainAllCards = ->
   flipCard()
   setTimeout ->
     init()
-  ,500
+  ,animationTime/2
 
 playAgainWrongCards = ->
   flipCard()
   setTimeout ->
     init(true)
-  ,500
+  ,animationTime/2
 
 
 
@@ -129,7 +137,7 @@ flipElement = (selector) ->
   $(selector).addClass 'flip'
   setTimeout ->
     $(selector).removeClass 'flip'
-  , 1000
+  ,animationTime
 
 # flips the card using flipElement()
 flipCard = ->
@@ -138,7 +146,7 @@ flipCard = ->
   setTimeout ->
     $('.front').toggle()
     $('.back').toggle()
-  , 500
+  ,animationTime/2
 
 # sets the text on the card to the valuse provided by the first (0th) element in the data.unansweredCards array
 setTextOnCard = ->

@@ -99,18 +99,28 @@ h1 {
 }
 
 .flip {
-  -webkit-animation: flip 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-          animation: flip 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  -webkit-animation: flip 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+          animation: flip 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .swingOut {
-  -webkit-animation: swingOut 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-          animation: swingOut 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  -webkit-animation: swingOut 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+          animation: swingOut 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .swingIn {
-  -webkit-animation: swingIn 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-          animation: swingIn 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  -webkit-animation: swingIn 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+          animation: swingIn 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.swingOut-right {
+  -webkit-animation: swingOut 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+          animation: swingOut 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.swingOut-wrong {
+  -webkit-animation: swingOut-wrong 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+          animation: swingOut-wrong 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 @-webkit-keyframes flip {
@@ -168,6 +178,26 @@ h1 {
   100% {
     -webkit-transform: translateX(500%);
             transform: translateX(500%);
+  }
+}
+@-webkit-keyframes swingOut-wrong {
+  0% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+  100% {
+    -webkit-transform: translateX(-500%);
+            transform: translateX(-500%);
+  }
+}
+@keyframes swingOut-wrong {
+  0% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+  100% {
+    -webkit-transform: translateX(-500%);
+            transform: translateX(-500%);
   }
 }
 @-webkit-keyframes swingIn {
