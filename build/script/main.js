@@ -1,6 +1,6 @@
-var animationTime, answer, answerRight, answerWrong, check, data, flipCard, flipElement, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, setTextOnCard;
+var animationTime, answer, answerRight, answerWrong, check, data, flipCard, flipElement, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, setProgressBar, setTextOnCard, updateProgressBar;
 
-console.log('karteikarten v0.1.5');
+console.log('karteikarten v0.2');
 
 $(document).ready(function() {
   return toastr.options.preventDuplicates = true;
@@ -69,7 +69,9 @@ loadData = function() {
       $('.front').show();
       $('.back').hide();
       $('.allDone').hide();
-      return $('.selectData').hide();
+      $('.selectData').hide();
+      $('.progressbar').fadeIn('fast');
+      return updateProgressBar();
     }, animationTime / 2);
   }).fail(function() {
     toastr.clear();
@@ -80,6 +82,7 @@ loadData = function() {
 };
 
 nextCard = function(wrongBool) {
+  updateProgressBar();
   if (wrongBool) {
     $('.card').addClass('swingOut-wrong');
   } else {
@@ -141,6 +144,14 @@ flipCard = function() {
   }, animationTime / 2);
 };
 
+setProgressBar = function(right, wrong, unanswered) {
+  $('.progressbar .unanswered').width(unanswered + '%');
+  $('.progressbar .right').width(right + '%');
+  $('.progressbar .wrong').width(wrong + '%');
+  $('.progressbar .wrong').css('left', right + '%');
+  return $('.progressbar .unanswered').css('left', (right + wrong) + '%');
+};
+
 setTextOnCard = function() {
   console.log('running setTextOnCard');
   if (data.allCards.length === 0) {
@@ -167,6 +178,14 @@ setTextOnCard = function() {
       return $('.btnAgainWrong').show();
     }
   }
+};
+
+updateProgressBar = function() {
+  var right, unanswered, wrong;
+  right = data.rightCards.length / data.allCards.length * 100;
+  wrong = data.wrongCards.length / data.allCards.length * 100;
+  unanswered = data.unansweredCards.length / data.allCards.length * 100;
+  return setProgressBar(right, wrong, unanswered);
 };
 
 Array.prototype.shuffle = function() {

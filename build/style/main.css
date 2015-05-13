@@ -92,10 +92,36 @@ h1 {
   text-align: center;
 }
 
-.progress {
+.progressbar {
+  position: fixed;
+  top: 0%;
+  height: 10px;
+  width: 100%;
+  -webkit-transition: all 2s;
+          transition: all 2s;
+}
+
+.progressbar > .barPart {
+  height: 100%;
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
   position: absolute;
-  bottom: 0%;
-  right: 0%;
+  -webkit-transition: all 2s;
+          transition: all 2s;
+}
+
+.progressbar > .unanswered {
+  background-color: #E0E0E0;
+  width: 100%;
+}
+
+.progressbar > .right {
+  background-color: #4CD964;
+}
+
+.progressbar > .wrong {
+  background-color: #FF3B30;
 }
 
 .flip {

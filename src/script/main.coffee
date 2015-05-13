@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.1.5'
+console.log 'karteikarten v0.2'
 $( document ).ready ->
   # toastr config
   toastr.options.preventDuplicates = true
@@ -74,6 +74,8 @@ loadData = ->
       $('.allDone').hide()
       $('.selectData').hide()
       # $('.totalCardN').html data.allCards.length
+      $('.progressbar').fadeIn 'fast'
+      updateProgressBar()
     ,animationTime/2
   .fail ->
     toastr.clear()
@@ -84,6 +86,8 @@ loadData = ->
 
 # gets the next card (swing out and in, fires of the flipCard() and setTextOnCard() functions and increases data.currCard)
 nextCard = (wrongBool) ->
+  updateProgressBar()
+
   if wrongBool
     $('.card').addClass 'swingOut-wrong'
   else
@@ -148,6 +152,15 @@ flipCard = ->
     $('.back').toggle()
   ,animationTime/2
 
+
+setProgressBar = (right, wrong, unanswered) ->
+  $('.progressbar .unanswered').width unanswered + '%'
+  $('.progressbar .right').width right + '%'
+  $('.progressbar .wrong').width wrong + '%'
+
+  $('.progressbar .wrong').css 'left', right + '%'
+  $('.progressbar .unanswered').css 'left', (right + wrong) + '%'
+
 # sets the text on the card to the valuse provided by the first (0th) element in the data.unansweredCards array
 setTextOnCard = ->
   console.log 'running setTextOnCard'
@@ -178,6 +191,12 @@ setTextOnCard = ->
     else
       $('.btnAgainWrong').show()
 
+updateProgressBar = ->
+  right = data.rightCards.length / data.allCards.length * 100
+  wrong = data.wrongCards.length / data.allCards.length * 100
+  unanswered = data.unansweredCards.length / data.allCards.length * 100
+
+  setProgressBar right, wrong, unanswered
 
 # Proto improvements
 
