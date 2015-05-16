@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.2.2'
+console.log 'karteikarten v0.2.3'
 $( document ).ready ->
   # toastr config
   toastr.options.preventDuplicates = true
@@ -146,7 +146,9 @@ playAgainWrongCards = ->
     init(true)
   ,animationTime/2
 
-
+reset = ->
+  window.location.hash = ''
+  window.location.href = window.location.href.split('#').join('')
 
 # tools
 
@@ -271,4 +273,4 @@ $('.btnAgainWrong').click -> playAgainWrongCards()
 $('.btnSubmitJson').click -> loadData()
 
 # reset button
-$('.btnReset').click -> window.location.href = window.location.href.split('#').join('')
+$('.btnReset').click -> reset()
