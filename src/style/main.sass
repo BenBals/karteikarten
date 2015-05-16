@@ -29,6 +29,11 @@ a.btn
     border: 1px solid rgba(0, 0, 0, 0)
     border-bottom: 2px solid $blue
 
+a.btnReset
+  position: fixed
+  bottom: 1%
+  right: 1%
+
 a.btnRight
   color: $rightGreen
   border-color: $rightGreen
@@ -50,6 +55,16 @@ a.btnUnderline
   padding: 5px 5px
   margin: 5px 5px
   font-size: 10pt
+
+a.noAStyle
+  color: $blue
+  text-decoration: none
+
+  &:hover
+    cursor: pointer
+
+  &:hover, &:active, &:visited
+    color: $blue
 
 .card
   margin: 0 auto

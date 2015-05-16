@@ -27,6 +27,12 @@ a.btn:active {
   border-bottom: 2px solid #21a1e1;
 }
 
+a.btnReset {
+  position: fixed;
+  bottom: 1%;
+  right: 1%;
+}
+
 a.btnRight {
   color: #4CD964;
   border-color: #4CD964;
@@ -53,6 +59,17 @@ a.btnUnderline {
   padding: 5px 5px;
   margin: 5px 5px;
   font-size: 10pt;
+}
+
+a.noAStyle {
+  color: #21a1e1;
+  text-decoration: none;
+}
+a.noAStyle:hover {
+  cursor: pointer;
+}
+a.noAStyle:hover, a.noAStyle:active, a.noAStyle:visited {
+  color: #21a1e1;
 }
 
 .card {
