@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.2'
+console.log 'karteikarten v0.2.2'
 $( document ).ready ->
   # toastr config
   toastr.options.preventDuplicates = true

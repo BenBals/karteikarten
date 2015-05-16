@@ -1,6 +1,6 @@
 var addQueryVar, animationTime, answer, answerRight, answerWrong, check, data, flipCard, flipElement, getQueryVar, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, setProgressBar, setTextOnCard, updateProgressBar;
 
-console.log('karteikarten v0.2');
+console.log('karteikarten v0.2.2');
 
 $(document).ready(function() {
   toastr.options.preventDuplicates = true;
