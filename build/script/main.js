@@ -1,6 +1,6 @@
 var addQueryVar, animationTime, answer, answerRight, answerWrong, check, data, flipCard, flipElement, getQueryVar, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, reset, setProgressBar, setTextOnCard, updateProgressBar;
 
-console.log('karteikarten v0.2.3');
+console.log('karteikarten v0.2.3b');
 
 $(document).ready(function() {
   toastr.options.preventDuplicates = true;
@@ -137,7 +137,7 @@ playAgainWrongCards = function() {
 
 reset = function() {
   window.location.hash = '';
-  return window.location.href = window.location.href.split('#').join('');
+  return window.location.href = window.location.href.split('#')[0];
 };
 
 addQueryVar = function(name, val) {

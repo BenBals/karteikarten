@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.2.3'
+console.log 'karteikarten v0.2.3b'
 $( document ).ready ->
   # toastr config
   toastr.options.preventDuplicates = true
@@ -148,7 +148,7 @@ playAgainWrongCards = ->
 
 reset = ->
   window.location.hash = ''
-  window.location.href = window.location.href.split('#').join('')
+  window.location.href = window.location.href.split('#')[0]
 
 # tools
 
