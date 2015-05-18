@@ -82,6 +82,11 @@ loadData = function(queryURL) {
   }
   return JSONLoadCheckInterval = setInterval(function() {
     var dataThing, l, len1;
+    if (loadFail) {
+      toastr.clear();
+      toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL(s) bzw. die Datenquelle(n).');
+      clearInterval(JSONLoadCheckInterval);
+    }
     if (loadedData.length === urls.length) {
       console.log('all data loaded');
       console.log(loadedData);
@@ -104,6 +109,7 @@ loadData = function(queryURL) {
         }
         data.allCards.shuffle();
       }
+      toastr.clear();
       flipCard();
       setTimeout(function() {
         init();
@@ -112,16 +118,10 @@ loadData = function(queryURL) {
         $('.allDone').hide();
         $('.selectData').hide();
         $('.progressbar').fadeIn('fast');
-        updateProgressBar();
-        return toastr.clear();
+        return updateProgressBar();
       }, animationTime / 2);
       addQueryVar('dataURL', urls.join(','));
       toastr.info('Kopiere einfach die URL aus der Leiste und sende sende sie an jemandem und er spielt mit den gleichen karteikarten.');
-      clearInterval(JSONLoadCheckInterval);
-    }
-    if (loadFail) {
-      toastr.clear();
-      toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL(s) bzw. die Datenquelle(n).');
       return clearInterval(JSONLoadCheckInterval);
     }
   }, JSONLoadCheckInterval);

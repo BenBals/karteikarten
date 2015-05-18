@@ -94,6 +94,12 @@ loadData = (queryURL) ->
 
   # creating an interval that checks whether all data is loaded every JSONLoadCheckInterval seconds
   JSONLoadCheckInterval = setInterval ->
+    # exit and notify the user when the loading fails
+    if loadFail
+      toastr.clear()
+      toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL(s) bzw. die Datenquelle(n).')
+      clearInterval(JSONLoadCheckInterval)
+
     if loadedData.length is urls.length
       console.log 'all data loaded'
 
@@ -118,6 +124,7 @@ loadData = (queryURL) ->
         data.allCards.shuffle()
 
       # do the visual stuff
+      toastr.clear()
       flipCard()
       setTimeout ->
         init()
@@ -128,7 +135,6 @@ loadData = (queryURL) ->
         # $('.totalCardN').html data.allCards.length
         $('.progressbar').fadeIn 'fast'
         updateProgressBar()
-        toastr.clear()
       ,animationTime/2
 
       #add the url(s) to the hash query string
@@ -136,12 +142,6 @@ loadData = (queryURL) ->
       toastr.info('Kopiere einfach die URL aus der Leiste und sende sende sie an jemandem und er spielt mit den gleichen karteikarten.')
 
       # clear the interval
-      clearInterval(JSONLoadCheckInterval)
-
-    # exit and notify the user when the loading fails
-    if loadFail
-      toastr.clear()
-      toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL(s) bzw. die Datenquelle(n).')
       clearInterval(JSONLoadCheckInterval)
 
   ,JSONLoadCheckInterval
