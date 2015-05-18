@@ -1,15 +1,20 @@
 # init
-console.log 'karteikarten v0.2.3b'
+console.log 'karteikarten v0.3 - BETA admantium armadillo'
 $( document ).ready ->
   # toastr config
   toastr.options.preventDuplicates = true
+
+  # SumoSelect config
+  $('.dataSelect').SumoSelect {
+    'placeholder': 'URL auswählen'
+  }
 
   if getQueryVar('dataURL') != false
     loadData(getQueryVar('dataURL'))
 
 # config variables
 animationTime = 500
-
+JSONLoadCheckInterval = 10
 
 # data variables
 
@@ -54,49 +59,92 @@ init = (wichCards) ->
 
 loadData = (queryURL) ->
 
-  # check wheter the input or the dropdown was used
-  url = ''
-  if queryURL
-    url = queryURL
-  else if $('.dataSelect').val() is ''
-    url = $('input.jsonUrl').val()
-  else
-    url = $('.dataSelect').val()
+  # check wheter the input or the dropdown was used or the query stirng and seperating the urls and adding them to the urls array
+  urls = []
 
-  console.log url
+  if queryURL
+    urls = queryURL.trim().split(',')
+  else if $('.dataSelect').val() is null
+    urls = $('input.jsonUrl').val().trim().split(', ').join(',').split(',')
+  else
+    urls = $('.dataSelect').val()
+  console.log 'the urls are '
+  console.log urls
   toastr.info('Laden...')
 
-  #get the JSON
-  $.getJSON url, (jsonData) ->
-    console.log typeof jsonData
-    # checks for a config
-    if jsonData instanceof Array
-      data.allCards = jsonData
-    else
-      data.allCards = jsonData.data.shuffle()
-      data.random = jsonData.config.random
-    console.log jsonData
-    flipCard()
-    setTimeout ->
-      init()
-      $('.front').show()
-      $('.back').hide()
-      $('.allDone').hide()
-      $('.selectData').hide()
-      # $('.totalCardN').html data.allCards.length
-      $('.progressbar').fadeIn 'fast'
-      updateProgressBar()
-    ,animationTime/2
-  .fail ->
-    toastr.clear()
-    toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL bzw. die Datenquelle.')
-  .done ->
-    toastr.clear()
+  # init loaded data as emply array to hold all jsonData responses
+  loadedData = []
+  loadFail = false
 
-    #add the url to the hash query string
-    addQueryVar('dataURL', url)
-    toastr.info('Kopiere einfach die URL aus der Leiste und sende sende sie an jemandem und er spielt mit den gleichen karteikarten.')
-  
+  # looping over the urls
+  for url in urls
+    # running them throug rawgit
+    url = url.split('gist.githubusercontent.com').join('cdn.rawgit.com')
+    # do not use the CDN in dev
+    if window.location.hostname is 'localhost'
+      url = url.split('cdn.').join('')
+
+    # init the loading process
+    $.getJSON url, (jsonData) ->
+      loadedData.push jsonData
+      # set the loadFail variable to true when one file fails
+    .fail -> loadFail = true
+
+    console.log 'start loading', url
+
+  # creating an interval that checks whether all data is loaded every JSONLoadCheckInterval seconds
+  JSONLoadCheckInterval = setInterval ->
+    if loadedData.length is urls.length
+      console.log 'all data loaded'
+
+      console.log loadedData
+      # check if we only load one file
+      if loadedData.length is 1
+        # check if it has a config
+        if loadedData[0] instanceof Array
+          data.allCards = loadedData[0]
+        else
+          data.allCards = loadedData[0].data.shuffle()
+          data.random = loadedData[0].config.random
+      else
+        # loop over all loaded files
+        for dataThing in loadedData
+          console.log dataThing
+          if dataThing instanceof Array
+            data.allCards = data.allCards.concat(dataThing)
+          else
+            data.allCards = data.allCards.concat(dataThing.data)
+
+        data.allCards.shuffle()
+
+      # do the visual stuff
+      flipCard()
+      setTimeout ->
+        init()
+        $('.front').show()
+        $('.back').hide()
+        $('.allDone').hide()
+        $('.selectData').hide()
+        # $('.totalCardN').html data.allCards.length
+        $('.progressbar').fadeIn 'fast'
+        updateProgressBar()
+        toastr.clear()
+      ,animationTime/2
+
+      #add the url(s) to the hash query string
+      addQueryVar('dataURL', urls.join(','))
+      toastr.info('Kopiere einfach die URL aus der Leiste und sende sende sie an jemandem und er spielt mit den gleichen karteikarten.')
+
+      # clear the interval
+      clearInterval(JSONLoadCheckInterval)
+
+    # exit and notify the user when the loading fails
+    if loadFail
+      toastr.clear()
+      toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL(s) bzw. die Datenquelle(n).')
+      clearInterval(JSONLoadCheckInterval)
+
+  ,JSONLoadCheckInterval
 
 # gets the next card (swing out and in, fires of the flipCard() and setTextOnCard() functions and increases data.currCard)
 nextCard = (wrongBool) ->

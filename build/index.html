@@ -23,10 +23,9 @@
 							<div class="back dpn"><span class="a"></span><br><br><a class="btn btnSmall btnRight">Richtig</a><a class="btn btnSmall btnWrong">Falsch</a></div>
 						</div>
 						<div class="allDone dpn"><span>Du hast alle karteikarten beantwortet</span><br><br><a class="btn btnUnderline btnAgainAll">Nochmal mit allen Karten</a><br><br><a class="btn btnUnderline btnAgainWrong">Nochmal mit den falschen Karten</a></div>
-						<div class="selectData"><span>Gib die URL der Datenquelle ein</span>
+						<div class="selectData"><span>Gib die URL(s) der Datenquelle(n) ein (ggf. durch , getrennt)</span>
 							<input class="jsonUrl"><br><span>oder wähle eine von unseren Datenquellen aus</span>
-							<select name="dataSelect" class="dataSelect">
-								<option value="">-</option>
+							<select name="dataSelect" multiple="multiple" class="dataSelect">
 								<option value="https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/04e59206821d9edb4642c02517382ce7cece3d5e/alleLektionen.json">Actio - Stammformen - Alle Lektionen</option>
 								<option value="https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/1428de6b120cdfe1e4c311ee7d049af299a1e13c/vok23.json">Actio - Vokabeln - Lektion 23</option>
 								<option value="https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/b76d6127555dee73696d2eae524c0c51ec56f92b/vok25.json">Actio - Vokabeln - Lektion 25</option>
@@ -35,7 +34,7 @@
 					</div>
 				</div>
 			</div>
-		</div><a class="noAStyle btnReset">Reset</a>
+		</div><a class="noAStyle btnReset">Home</a>
 		<script inline src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script inline src="script/main.js"></script>
 	</body>
