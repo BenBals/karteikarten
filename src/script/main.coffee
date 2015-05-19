@@ -89,11 +89,12 @@ loadData = (queryURL) ->
       loadedData.push jsonData
       # set the loadFail variable to true when one file fails
     .fail -> loadFail = true
+    .done -> checkDataLoad()
 
     console.log 'start loading', url
 
   # creating an interval that checks whether all data is loaded every JSONLoadCheckInterval seconds
-  JSONLoadCheckInterval = setInterval ->
+  checkDataLoad = () ->
     # exit and notify the user when the loading fails
     if loadFail
       toastr.clear()
@@ -140,11 +141,6 @@ loadData = (queryURL) ->
       #add the url(s) to the hash query string
       addQueryVar('dataURL', urls.join(','))
       toastr.info('Kopiere einfach die URL aus der Leiste und sende sende sie an jemandem und er spielt mit den gleichen karteikarten.')
-
-      # clear the interval
-      clearInterval(JSONLoadCheckInterval)
-
-  ,JSONLoadCheckInterval
 
 # gets the next card (swing out and in, fires of the flipCard() and setTextOnCard() functions and increases data.currCard)
 nextCard = (wrongBool) ->

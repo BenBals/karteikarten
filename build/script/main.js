@@ -53,7 +53,7 @@ init = function(wichCards) {
 };
 
 loadData = function(queryURL) {
-  var k, len, loadFail, loadedData, url, urls;
+  var checkDataLoad, k, len, loadFail, loadedData, url, urls;
   urls = [];
   if (queryURL) {
     urls = queryURL.trim().split(',');
@@ -77,10 +77,12 @@ loadData = function(queryURL) {
       return loadedData.push(jsonData);
     }).fail(function() {
       return loadFail = true;
+    }).done(function() {
+      return checkDataLoad();
     });
     console.log('start loading', url);
   }
-  return JSONLoadCheckInterval = setInterval(function() {
+  return checkDataLoad = function() {
     var dataThing, l, len1;
     if (loadFail) {
       toastr.clear();
@@ -121,10 +123,9 @@ loadData = function(queryURL) {
         return updateProgressBar();
       }, animationTime / 2);
       addQueryVar('dataURL', urls.join(','));
-      toastr.info('Kopiere einfach die URL aus der Leiste und sende sende sie an jemandem und er spielt mit den gleichen karteikarten.');
-      return clearInterval(JSONLoadCheckInterval);
+      return toastr.info('Kopiere einfach die URL aus der Leiste und sende sende sie an jemandem und er spielt mit den gleichen karteikarten.');
     }
-  }, JSONLoadCheckInterval);
+  };
 };
 
 nextCard = function(wrongBool) {
