@@ -131,6 +131,7 @@ h1 {
   width: 100%;
   -webkit-transition: all 2s;
           transition: all 2s;
+  background-color: #E0E0E0;
 }
 
 .progressbar > .barPart {
@@ -141,11 +142,6 @@ h1 {
   position: absolute;
   -webkit-transition: all 2s;
           transition: all 2s;
-}
-
-.progressbar > .unanswered {
-  background-color: #E0E0E0;
-  width: 100%;
 }
 
 .progressbar > .right {

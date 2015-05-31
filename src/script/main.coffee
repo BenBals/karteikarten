@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.3.1 - BETA admantium armadillo'
+console.log 'karteikarten v0.4 - BETA barium bear'
 $( document ).ready ->
   # toastr config
   toastr.options.preventDuplicates = true
@@ -22,6 +22,7 @@ JSONLoadCheckInterval = 10
 data = {}
 data.allCards = []
 data.random = false
+data.state = 'selectData'
 
 
 # main functions
@@ -130,10 +131,7 @@ loadData = (queryURL) ->
       flipCard()
       setTimeout ->
         init()
-        $('.front').show()
-        $('.back').hide()
-        $('.allDone').hide()
-        $('.selectData').hide()
+        setState('front')
         # $('.totalCardN').html data.allCards.length
         $('.progressbar').fadeIn 'fast'
         updateProgressBar()
@@ -175,8 +173,7 @@ nextCard = (wrongBool) ->
 playAgian = ->
   console.log 'runnig playAgian'
   setTimeout ->
-    $('.allDone').hide()
-    $('.front').show()
+    setState('front')
   ,animationTime/2
 
 playAgainAllCards = ->
@@ -215,6 +212,10 @@ flipElement = (selector) ->
 
 # flips the card using flipElement()
 flipCard = ->
+  if data.state is 'front'
+    data.state = 'back'
+  else if data.state is 'back'
+    data.state = 'front'
   console.log 'runnig flip card'
   flipElement('.card')
   setTimeout ->
@@ -236,38 +237,40 @@ getQueryVar = (name) ->
   return false
 
 # takes the percent values for right, wrong and unanwered and sets the progress bar acordingly
-setProgressBar = (right, wrong, unanswered) ->
-  $('.progressbar .unanswered').width unanswered + '%'
+setProgressBar = (right, wrong) ->
   $('.progressbar .right').width right + '%'
   $('.progressbar .wrong').width wrong + '%'
 
   $('.progressbar .wrong').css 'left', right + '%'
-  $('.progressbar .unanswered').css 'left', (right + wrong) + '%'
+
+# get the app into a specific state
+setState = (stateId) ->
+  data.state = stateId
+
+  $('.front').hide()
+  $('.back').hide()
+  $('.allDone').hide()
+  $('.selectData').hide()
+
+  $('.' + stateId).show()
 
 # sets the text on the card to the valuse provided by the first (0th) element in the data.unansweredCards array
 setTextOnCard = ->
   console.log 'running setTextOnCard'
   if data.allCards.length == 0
     console.log 'there is no data'
-    $('.front').hide()
-    $('.back').hide()
-    $('.allDone').hide()
-    $('.selectData').show()
+    setState('selectData')
 
   else if data.unansweredCards.length > 0
     $('.q').html data.unansweredCards[0][0]
     $('.a').html data.unansweredCards[0][1]
 
-    $('.front').show()
-    $('.back').hide()
-    $('.allDone').hide()
-    $('.selectData').hide()
+    setState('front')
   
   else
-    $('.front').hide()
-    $('.back').hide()
-    $('.allDone').show()
-    $('.selectData').hide()
+    setState('allDone')
+
+    toastr.info('Psst. Profi-Tipp: Benutze <a href="https://github.com/BenBals/karteikarten/blob/master/README.md">Shortcuts<a>, wenn du auf einem Computer spielst.')
 
     if data.wrongCards.length == 0
       $('.btnAgainWrong').hide()
@@ -276,11 +279,13 @@ setTextOnCard = ->
 
 # when called it calculates the percentages for right, wrong and unanswered and passes them to the setProgressBar function
 updateProgressBar = ->
-  right = data.rightCards.length / data.allCards.length * 100
-  wrong = data.wrongCards.length / data.allCards.length * 100
-  unanswered = data.unansweredCards.length / data.allCards.length * 100
+  currentCardAmount = data.unansweredCards.length + data.rightCards.length + data.wrongCards.length
 
-  setProgressBar right, wrong, unanswered
+  right = data.rightCards.length / currentCardAmount * 100
+  wrong = data.wrongCards.length / currentCardAmount * 100
+
+  setProgressBar right, wrong
+
 
 # Proto improvements
 
@@ -319,3 +324,40 @@ $('.btnSubmitJson').click -> loadData()
 
 # reset button
 $('.btnReset').click -> reset()
+
+# shortcuts
+$(document).keypress (ev) ->
+
+  console.log ev.keyCode
+  console.log data.state
+
+  # enter
+  if ev.keyCode is 13
+    # on front -> check
+    if data.state is 'front'
+      check()
+    # on back -> answered right
+    else if data.state is 'back'
+      console.log 'running hk back'
+      answer()
+      answerRight()
+    # on all done -> play again with all cards
+    else if data.state is 'allDone'
+      playAgian()
+      playAgainAllCards()
+    # on select data -> load the data
+    else if data.state is 'selectData'
+      loadData()
+
+  else if ev.keyCode is 32
+    # on back -> answer wrong
+    if data.state is 'back'
+      answer()
+      answerWrong()
+    # on all done -> replay with the wrong cards
+    else if data.state is 'allDone'
+      playAgian()
+      playAgainWrongCards()
+
+  else if ev.keyCode is 82
+    reset()
