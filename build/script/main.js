@@ -1,6 +1,6 @@
 var JSONLoadCheckInterval, addQueryVar, animationTime, answer, answerRight, answerWrong, check, data, flipCard, flipElement, getQueryVar, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, reset, setProgressBar, setTextOnCard, updateProgressBar;
 
-console.log('karteikarten v0.3 - BETA admantium armadillo');
+console.log('karteikarten v0.3.1 - BETA admantium armadillo');
 
 $(document).ready(function() {
   toastr.options.preventDuplicates = true;
@@ -49,7 +49,9 @@ init = function(wichCards) {
   data.rightCards = [];
   data.wrongCards = [];
   data.currCard = 0;
-  return setTextOnCard();
+  loa;
+  setTextOnCard();
+  return updateProgressBar();
 };
 
 loadData = function(queryURL) {

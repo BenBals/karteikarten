@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.3 - BETA admantium armadillo'
+console.log 'karteikarten v0.3.1 - BETA admantium armadillo'
 $( document ).ready ->
   # toastr config
   toastr.options.preventDuplicates = true
@@ -55,7 +55,9 @@ init = (wichCards) ->
 
   data.currCard = 0
 
+  loa
   setTextOnCard()
+  updateProgressBar()
 
 loadData = (queryURL) ->
 
