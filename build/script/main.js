@@ -49,7 +49,6 @@ init = function(wichCards) {
   data.rightCards = [];
   data.wrongCards = [];
   data.currCard = 0;
-  loa;
   setTextOnCard();
   return updateProgressBar();
 };

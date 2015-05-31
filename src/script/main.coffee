@@ -55,7 +55,6 @@ init = (wichCards) ->
 
   data.currCard = 0
 
-  loa
   setTextOnCard()
   updateProgressBar()
 
