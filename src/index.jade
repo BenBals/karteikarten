@@ -45,18 +45,17 @@ body
               input.jsonUrl
               br
               span oder wähle eine von unseren Datenquellen aus
-              select.dataSelect(name='dataSelect', multiple='multiple')
-                option(value='https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/04e59206821d9edb4642c02517382ce7cece3d5e/alleLektionen.json') Actio - Stammformen - Alle Lektionen
-                option(value='https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/1428de6b120cdfe1e4c311ee7d049af299a1e13c/vok23.json') Actio - Vokabeln - Lektion 23
-                option(value='https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/b76d6127555dee73696d2eae524c0c51ec56f92b/vok25.json') Actio - Vokabeln - Lektion 25
-                option(value='https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/b0fc2740e3021570bb578ecd7df1bc60317ef1d5/vok26.json') Actio - Vokabeln - Lektion 26
-
-                option(value='https://gist.githubusercontent.com/BenBals/3f4ec90beb7438f3a58d/raw/3332efc4161e049393b986094ca763a9cf5fcc30/vok5b.json') Encuentros - Vokabeln - 5b
+              .select-wrapper
+                select.dataSelect(name='dataSelect', multiple='multiple')
+                  option(label='Actio - Stammformen - Alle Lektionen', value='https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/04e59206821d9edb4642c02517382ce7cece3d5e/alleLektionen.json')
+                  option(label='Actio - Vokabeln - Lektion 23', value='https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/1428de6b120cdfe1e4c311ee7d049af299a1e13c/vok23.json')
+                  option(label='Actio - Vokabeln - Lektion 25', value='https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/b76d6127555dee73696d2eae524c0c51ec56f92b/vok25.json')
+                  option(label='Actio - Vokabeln - Lektion 26', value='https://gist.githubusercontent.com/BenBals/e63d3bece9043eaf00e9/raw/b0fc2740e3021570bb578ecd7df1bc60317ef1d5/vok26.json')
+                  option(label='Encuentros - Vokabeln - 5b', value='https://gist.githubusercontent.com/BenBals/3f4ec90beb7438f3a58d/raw/3332efc4161e049393b986094ca763a9cf5fcc30/vok5b.json')
               br
               br
               a.btn.btnSmall.btnSubmitJson Los
 
     a.noAStyle.btnReset Home
 
-    script(inline, src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
     script(inline, src="script/main.js")

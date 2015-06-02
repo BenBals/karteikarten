@@ -1,20 +1,14 @@
 # init
 console.log 'karteikarten v0.4 - BETA barium bear'
-$( document ).ready ->
-  # toastr config
-  toastr.options.preventDuplicates = true
-
-  # SumoSelect config
-  $('.dataSelect').SumoSelect {
-    'placeholder': 'URL auswählen'
-  }
+x('.ready').ready ->
+  # humane config
+  humane.clickToClose = true
 
   if getQueryVar('dataURL') != false
     loadData(getQueryVar('dataURL'))
 
 # config variables
 animationTime = 500
-JSONLoadCheckInterval = 10
 
 # data variables
 
@@ -66,13 +60,13 @@ loadData = (queryURL) ->
 
   if queryURL
     urls = queryURL.trim().split(',')
-  else if $('.dataSelect').val() is null
-    urls = $('input.jsonUrl').val().trim().split(', ').join(',').split(',')
+  else if x('.dataSelect').val() is null
+    urls = x('input.jsonUrl').val().trim().split(', ').join(',').split(',')
   else
-    urls = $('.dataSelect').val()
+    urls = x('.dataSelect').val()
   console.log 'the urls are '
   console.log urls
-  toastr.info('Laden...')
+  humane.log('Laden...')
 
   # init loaded data as emply array to hold all jsonData responses
   loadedData = []
@@ -87,21 +81,23 @@ loadData = (queryURL) ->
       url = url.split('cdn.').join('')
 
     # init the loading process
-    $.getJSON url, (jsonData) ->
-      loadedData.push jsonData
+    x().httpReq url,
+    (req) ->
+      loadedData.push JSON.parse(req.response)
+      console.log loadedData
+      checkDataLoad()
       # set the loadFail variable to true when one file fails
-    .fail -> loadFail = true
-    .done -> checkDataLoad()
+    ,->
+      loadFail = true
+      checkDataLoad()
 
     console.log 'start loading', url
 
-  # creating an interval that checks whether all data is loaded every JSONLoadCheckInterval seconds
   checkDataLoad = () ->
     # exit and notify the user when the loading fails
     if loadFail
-      toastr.clear()
-      toastr.error('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL(s) bzw. die Datenquelle(n).')
-      clearInterval(JSONLoadCheckInterval)
+      humane.remove()
+      humane.log('Es ist ein Fehler beim Laden der Daten aufgetreten. Kontrolliere die URL(s) bzw. die Datenquelle(n).')
 
     if loadedData.length is urls.length
       console.log 'all data loaded'
@@ -127,34 +123,34 @@ loadData = (queryURL) ->
         data.allCards.shuffle()
 
       # do the visual stuff
-      toastr.clear()
+      humane.remove()
       flipCard()
       setTimeout ->
         init()
         setState('front')
-        # $('.totalCardN').html data.allCards.length
-        $('.progressbar').fadeIn 'fast'
+        # x('.totalCardN').html data.allCards.length
+        x('.progressbar').css 'display', 'block'
         updateProgressBar()
       ,animationTime/2
 
       #add the url(s) to the hash query string
       addQueryVar('dataURL', urls.join(','))
-      toastr.info('Kopiere einfach die URL aus der Leiste und sende sende sie an jemandem und er spielt mit den gleichen karteikarten.')
+      humane.log('Kopiere einfach die URL aus der Leiste und sende sende sie an jemandem und er spielt mit den gleichen karteikarten.')
 
 # gets the next card (swing out and in, fires of the flipCard() and setTextOnCard() functions and increases data.currCard)
 nextCard = (wrongBool) ->
   updateProgressBar()
 
   if wrongBool
-    $('.card').addClass 'swingOut-wrong'
+    x('.card').addClass 'swingOut-wrong'
   else
-    $('.card').addClass 'swingOut-right'
+    x('.card').addClass 'swingOut-right'
   setTimeout ->
-    $('.card').removeClass 'swingOut-wrong'
-    $('.card').removeClass 'swingOut-right'
-    $('.card').addClass 'swingIn'
+    x('.card').removeClass 'swingOut-wrong'
+    x('.card').removeClass 'swingOut-right'
+    x('.card').addClass 'swingIn'
     setTimeout ->
-      $('.card').removeClass 'swingIn'
+      x('.card').removeClass 'swingIn'
     ,animationTime
   ,animationTime
 
@@ -163,7 +159,7 @@ nextCard = (wrongBool) ->
 
   flipCard()
   data.currCard++
-  # $('.currentCardN').html data.currCard
+  # x('.currentCardN').html data.currCard
   setTimeout ->
     setTextOnCard()
   ,animationTime/2
@@ -205,9 +201,9 @@ addQueryVar = (name, val) ->
 
 # handels the flip animation for a given element
 flipElement = (selector) ->
-  $(selector).addClass 'flip'
+  x(selector).addClass 'flip'
   setTimeout ->
-    $(selector).removeClass 'flip'
+    x(selector).removeClass 'flip'
   ,animationTime
 
 # flips the card using flipElement()
@@ -219,8 +215,8 @@ flipCard = ->
   console.log 'runnig flip card'
   flipElement('.card')
   setTimeout ->
-    $('.front').toggle()
-    $('.back').toggle()
+    x('.front').toggle()
+    x('.back').toggle()
   ,animationTime/2
 
 # get a query variable (hidden in the hash) from the url by name
@@ -238,21 +234,21 @@ getQueryVar = (name) ->
 
 # takes the percent values for right, wrong and unanwered and sets the progress bar acordingly
 setProgressBar = (right, wrong) ->
-  $('.progressbar .right').width right + '%'
-  $('.progressbar .wrong').width wrong + '%'
+  x('.progressbar .right').css 'width', right + '%'
+  x('.progressbar .wrong').css 'width', wrong + '%'
 
-  $('.progressbar .wrong').css 'left', right + '%'
+  x('.progressbar .wrong').css 'left', right + '%'
 
 # get the app into a specific state
 setState = (stateId) ->
   data.state = stateId
 
-  $('.front').hide()
-  $('.back').hide()
-  $('.allDone').hide()
-  $('.selectData').hide()
+  x('.front').css 'display', 'none'
+  x('.back').css 'display', 'none'
+  x('.allDone').css 'display', 'none'
+  x('.selectData').css 'display', 'none'
 
-  $('.' + stateId).show()
+  x('.' + stateId).css 'display', 'block'
 
 # sets the text on the card to the valuse provided by the first (0th) element in the data.unansweredCards array
 setTextOnCard = ->
@@ -262,20 +258,20 @@ setTextOnCard = ->
     setState('selectData')
 
   else if data.unansweredCards.length > 0
-    $('.q').html data.unansweredCards[0][0]
-    $('.a').html data.unansweredCards[0][1]
+    x('.q').html data.unansweredCards[0][0]
+    x('.a').html data.unansweredCards[0][1]
 
     setState('front')
   
   else
     setState('allDone')
 
-    toastr.info('Psst. Profi-Tipp: Benutze <a href="https://github.com/BenBals/karteikarten/blob/master/README.md">Shortcuts<a>, wenn du auf einem Computer spielst.')
+    humane.log('Psst. Profi-Tipp: Benutze <a href="https://github.com/BenBals/karteikarten/blob/master/README.md#shortcuts">Shortcuts<a>, wenn du auf einem Computer spielst.')
 
     if data.wrongCards.length == 0
-      $('.btnAgainWrong').hide()
+      x('.btnAgainWrong').css 'display', 'none'
     else
-      $('.btnAgainWrong').show()
+      x('.btnAgainWrong').css 'display', 'block'
 
 # when called it calculates the percentages for right, wrong and unanswered and passes them to the setProgressBar function
 updateProgressBar = ->
@@ -307,26 +303,26 @@ Array::shuffle = ->
 # Event listeners
 
 # check button
-$('.checkBtn').click -> check()
+x('.checkBtn').on 'click', -> check()
 
 # answered right or wrong buttons
-$('.btnRight, .btnWrong').click -> answer()
-$('.btnRight').click -> answerRight()
-$('.btnWrong').click -> answerWrong()
+x('.btnRight, .btnWrong').on 'click', -> answer()
+x('.btnRight').on 'click', -> answerRight()
+x('.btnWrong').on 'click', -> answerWrong()
 
 # play agian buttons
-$('.btnAgainAll, .btnAgainWrong').click -> playAgian()
-$('.btnAgainAll').click -> playAgainAllCards()
-$('.btnAgainWrong').click -> playAgainWrongCards()
+x('.btnAgainAll, .btnAgainWrong').on 'click', -> playAgian()
+x('.btnAgainAll').on 'click', -> playAgainAllCards()
+x('.btnAgainWrong').on 'click', -> playAgainWrongCards()
 
 # get the json data button
-$('.btnSubmitJson').click -> loadData()
+x('.btnSubmitJson').on 'click', -> loadData()
 
 # reset button
-$('.btnReset').click -> reset()
+x('.btnReset').on 'click', -> reset()
 
 # shortcuts
-$(document).keypress (ev) ->
+x('body').on 'keypress', (ev) ->
 
   console.log ev.keyCode
   console.log data.state
