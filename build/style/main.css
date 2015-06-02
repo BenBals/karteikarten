@@ -436,6 +436,7 @@ h1 {
   }
 }
 
+
 .select-wrapper {
   display: -webkit-flex;
   -webkit-align-items: center;
@@ -488,4 +489,3 @@ option:checked::before, .multi-select input:checked + label {
 option:hover::before, .multi-select label:hover {
   background-color: #e0f2ff;
 }
-

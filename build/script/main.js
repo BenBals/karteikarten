@@ -6,7 +6,7 @@ var x;x=function(e){var n;return n={},n.selector=e,n.element=function(){return d
 
 var addQueryVar, animationTime, answer, answerRight, answerWrong, check, data, flipCard, flipElement, getQueryVar, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, reset, setProgressBar, setState, setTextOnCard, updateProgressBar;
 
-console.log('karteikarten v0.4 - BETA barium bear');
+console.log('karteikarten v0.5 - BETA ceasium chameleon');
 
 x('.ready').ready(function() {
   humane.clickToClose = true;

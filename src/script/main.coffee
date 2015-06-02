@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.4 - BETA barium bear'
+console.log 'karteikarten v0.5 - BETA ceasium chameleon'
 x('.ready').ready ->
   # humane config
   humane.clickToClose = true
