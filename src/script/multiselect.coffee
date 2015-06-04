@@ -1,31 +1,35 @@
-`
-(function () {
-	var options = document.getElementsByTagName('option');
-	var selected = [];
-	var select;
+do ->
+  options = document.getElementsByTagName('option')
 
-	function setSelected() {
-	  for (var i in options)
-	    options[i].selected = selected[i];
-	}
+  window.multiSelectSelected = []
 
-	function getSelected() {
-	  for (var i in options)
-	    selected[i] = options[i].selected;
-	}
+  setSelected = ->
+    window.multiSelectSelected = []
+    for i of options
+      options[i].selected = selected[i]
+      if options[i].selected
+        window.multiSelectSelected.push(options[i].value)
+    return
 
-	function init() {
-	  for (var i = 0; i < options.length; i++) {
-	    options[i].onmousedown = function(e) {
-	      var j = e.target.index;
-	      selected[j] = !selected[j];
-	      setSelected();
-	      
-	      return false;
-	    }
-	  }
-	}
+  getSelected = ->
+    for i of options
+      selected[i] = options[i].selected
+    return
 
-	init();
-})()
-`
+  init = ->
+    i = 0
+    while i < options.length
+
+      options[i].onmousedown = (e) ->
+        j = e.target.index
+        selected[j] = !selected[j]
+        setSelected()
+        false
+
+      i++
+    return
+
+  selected = []
+  select = undefined
+  init()
+  return

@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.5 - BETA ceasium chameleon'
+console.log 'karteikarten v0.5.1 - BETA ceasium chameleon'
 x('.ready').ready ->
   # humane config
   humane.clickToClose = true
@@ -63,9 +63,7 @@ loadData = (queryURL) ->
   else if x('.dataSelect').val() is null
     urls = x('input.jsonUrl').val().trim().split(', ').join(',').split(',')
   else
-    urls = x('.dataSelect').val()
-  console.log 'the urls are '
-  console.log urls
+    urls = window.multiSelectSelected
   humane.log('Laden...')
 
   # init loaded data as emply array to hold all jsonData responses
@@ -84,13 +82,11 @@ loadData = (queryURL) ->
     x().httpReq url,
     (req) ->
       loadedData.push JSON.parse(req.response)
-      console.log loadedData
       checkDataLoad()
       # set the loadFail variable to true when one file fails
     ,->
       loadFail = true
       checkDataLoad()
-
     console.log 'start loading', url
 
   checkDataLoad = () ->
@@ -101,8 +97,6 @@ loadData = (queryURL) ->
 
     if loadedData.length is urls.length
       console.log 'all data loaded'
-
-      console.log loadedData
       # check if we only load one file
       if loadedData.length is 1
         # check if it has a config
@@ -114,7 +108,6 @@ loadData = (queryURL) ->
       else
         # loop over all loaded files
         for dataThing in loadedData
-          console.log dataThing
           if dataThing instanceof Array
             data.allCards = data.allCards.concat(dataThing)
           else
@@ -167,7 +160,6 @@ nextCard = (wrongBool) ->
 
 # handels the play again buttons, sets the data and fires of the reset and restarts the game
 playAgian = ->
-  console.log 'runnig playAgian'
   setTimeout ->
     setState('front')
   ,animationTime/2
@@ -212,7 +204,6 @@ flipCard = ->
     data.state = 'back'
   else if data.state is 'back'
     data.state = 'front'
-  console.log 'runnig flip card'
   flipElement('.card')
   setTimeout ->
     x('.front').toggle()
@@ -252,7 +243,6 @@ setState = (stateId) ->
 
 # sets the text on the card to the valuse provided by the first (0th) element in the data.unansweredCards array
 setTextOnCard = ->
-  console.log 'running setTextOnCard'
   if data.allCards.length == 0
     console.log 'there is no data'
     setState('selectData')
@@ -323,10 +313,6 @@ x('.btnReset').on 'click', -> reset()
 
 # shortcuts
 x('body').on 'keypress', (ev) ->
-
-  console.log ev.keyCode
-  console.log data.state
-
   # enter
   if ev.keyCode is 13
     # on front -> check
@@ -334,7 +320,6 @@ x('body').on 'keypress', (ev) ->
       check()
     # on back -> answered right
     else if data.state is 'back'
-      console.log 'running hk back'
       answer()
       answerRight()
     # on all done -> play again with all cards
