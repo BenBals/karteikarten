@@ -1,0 +1,38 @@
+doctype html
+body
+  head
+    title karteikarten creator
+    meta(charset='utf-8')
+    meta(name="viewport", content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no")
+    
+    link(href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css")
+
+    link(inline, rel="stylesheet", type="text/css", href="style/creator.css")
+
+  body
+    nav.toolbar
+      .ul-wrapper
+        .left
+          ul
+            li 
+              b creator
+        .right
+          ul
+            // li new
+            // li save
+            li load
+            li publish
+
+    table
+      thead
+        tr
+          th Vorderseite
+          th Rückseite
+      tbody
+        tr
+          td
+            textarea(placeholder="Vorderseite")
+          td
+            textarea(placeholder="Rückseite")
+
+    script(inline, src="script/main.js")
