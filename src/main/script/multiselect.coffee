@@ -1,14 +1,10 @@
 do ->
   options = document.getElementsByTagName('option')
 
-  window.multiSelectSelected = []
-
   setSelected = ->
     window.multiSelectSelected = []
     for i of options
       options[i].selected = selected[i]
-      if options[i].selected
-        window.multiSelectSelected.push(options[i].value)
     return
 
   getSelected = ->

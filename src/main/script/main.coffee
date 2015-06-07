@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.5.1 - BETA ceasium chameleon'
+console.log 'karteikarten v0.5.2 - BETA ceasium chameleon'
 x('.ready').ready ->
   # humane config
   humane.clickToClose = true
@@ -55,6 +55,8 @@ init = (wichCards) ->
 
 loadData = (queryURL) ->
 
+  console.log 'running loadData'
+
   # check wheter the input or the dropdown was used or the query stirng and seperating the urls and adding them to the urls array
   urls = []
 
@@ -63,7 +65,8 @@ loadData = (queryURL) ->
   else if x('.dataSelect').val() is null
     urls = x('input.jsonUrl').val().trim().split(', ').join(',').split(',')
   else
-    urls = window.multiSelectSelected
+    urls = getMultiselectValues()
+  
   humane.log('Laden...')
 
   # init loaded data as emply array to hold all jsonData responses
@@ -222,6 +225,16 @@ getQueryVar = (name) ->
     if pair[0] == name then return pair[1]
   # otherwise return false
   return false
+
+getMultiselectValues = ->
+  results = []
+  options = x('.dataSelect option').es()
+
+  for option in options
+    if option.selected
+      results.push(option.value)
+
+  return results
 
 # takes the percent values for right, wrong and unanwered and sets the progress bar acordingly
 setProgressBar = (right, wrong) ->
