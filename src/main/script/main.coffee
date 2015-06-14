@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.5.2 - BETA ceasium chameleon'
+console.log 'karteikarten v0.5.3 - BETA ceasium chameleon'
 x('.ready').ready ->
   # humane config
   humane.clickToClose = true
@@ -62,12 +62,13 @@ loadData = (queryURL) ->
 
   if queryURL
     urls = queryURL.trim().split(',')
-  else if x('.dataSelect').val() is null
-    urls = x('input.jsonUrl').val().trim().split(', ').join(',').split(',')
+  else if x('.dataSelect').val()[0] is ""
+    urls = x('input.jsonUrl').val()[0].trim().split(', ').join(',').split(',')
   else
     urls = getMultiselectValues()
   
   humane.log('Laden...')
+  console.log urls
 
   # init loaded data as emply array to hold all jsonData responses
   loadedData = []

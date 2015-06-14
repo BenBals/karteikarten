@@ -6,7 +6,7 @@ var x;x=function(e){var t;return t={},t.selector=e,t.element=function(){return d
 
 var addQueryVar, animationTime, answer, answerRight, answerWrong, check, data, flipCard, flipElement, getMultiselectValues, getQueryVar, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, reset, setProgressBar, setState, setTextOnCard, updateProgressBar;
 
-console.log('karteikarten v0.5.2 - BETA ceasium chameleon');
+console.log('karteikarten v0.5.3 - BETA ceasium chameleon');
 
 x('.ready').ready(function() {
   humane.clickToClose = true;
@@ -62,12 +62,13 @@ loadData = function(queryURL) {
   urls = [];
   if (queryURL) {
     urls = queryURL.trim().split(',');
-  } else if (x('.dataSelect').val() === null) {
-    urls = x('input.jsonUrl').val().trim().split(', ').join(',').split(',');
+  } else if (x('.dataSelect').val()[0] === "") {
+    urls = x('input.jsonUrl').val()[0].trim().split(', ').join(',').split(',');
   } else {
     urls = getMultiselectValues();
   }
   humane.log('Laden...');
+  console.log(urls);
   loadedData = [];
   loadFail = false;
   for (k = 0, len = urls.length; k < len; k++) {

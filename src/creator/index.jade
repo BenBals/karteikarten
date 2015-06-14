@@ -7,7 +7,7 @@ body
     
     link(href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css")
 
-    link(inline, rel="stylesheet", type="text/css", href="style/creator.css")
+    link(inline, rel="stylesheet", type="text/css", href="style/creator.min.css")
 
   body
     nav.toolbar
@@ -23,9 +23,9 @@ body
             li
               a.btnFlat load
             li
-              a.btnFlat export
+              a.btnFlat.exportBtn export
             li
-              a.btnFlat publish
+              a.btnFlat.publishBtn publish
 
     table
       thead
@@ -38,5 +38,32 @@ body
             textarea(placeholder="Vorderseite")
           td
             textarea(placeholder="Rückseite")
+
+    .modal.dpn
+      .export.dpn
+        h2 Export as JSON
+        | Copy the JSON from the field below to and paste it to where you need it. It is recommended that you use the publish option to publish via an anonymus gist. If you want to make a gist from your account copy the text below and navigate to 
+        a(href="http://gist.github.com", target="_blank") gist.github.com
+        |  and paste the text in.
+
+        textarea.exportJson
+
+      .publish.dpn
+        h2 Publish as an anonymus gist
+        | press the publish button to publish an an anonymus gist. If you want to make a gist from your account copy the text below and navigate to 
+        a(href="http://gist.github.com", target="_blank") gist.github.com
+        |  and paste the text in.
+        br
+        a.btn.publishGo publish
+
+      .published.dpn
+        h2 Published as a gist
+        | Copy the url below and enter it on
+        a(href="http://karteikarten.benbals.ninja") karteikarten.benbals.ninja
+        |  to play. Save the url as you can't review it later.
+
+        textarea.gistUrl
+
+      a.btnFlat.closeModal close
 
     script(inline, src="script/main.js")

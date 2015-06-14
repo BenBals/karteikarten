@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no">
 		<link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
-		<link inline rel="stylesheet" type="text/css" href="style/creator.css">
+		<link inline rel="stylesheet" type="text/css" href="style/creator.min.css">
 	</head>
 	<body>
 		<nav class="toolbar">
@@ -20,8 +20,8 @@
 						<!-- li new-->
 						<!-- li save-->
 						<li><a class="btnFlat">load</a></li>
-						<li><a class="btnFlat">export</a></li>
-						<li><a class="btnFlat">publish</a></li>
+						<li><a class="btnFlat exportBtn">export</a></li>
+						<li><a class="btnFlat publishBtn">publish</a></li>
 					</ul>
 				</div>
 			</div>
@@ -44,6 +44,19 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="modal dpn">
+			<div class="export dpn">
+				<h2>Export as JSON</h2>Copy the JSON from the field below to and paste it to where you need it. It is recommended that you use the publish option to publish via an anonymus gist. If you want to make a gist from your account copy the text below and navigate to <a href="http://gist.github.com" target="_blank">gist.github.com</a> and paste the text in.
+				<textarea class="exportJson"></textarea>
+			</div>
+			<div class="publish dpn">
+				<h2>Publish as an anonymus gist</h2>press the publish button to publish an an anonymus gist. If you want to make a gist from your account copy the text below and navigate to <a href="http://gist.github.com" target="_blank">gist.github.com</a> and paste the text in.<br><a class="btn publishGo">publish</a>
+			</div>
+			<div class="published dpn">
+				<h2>Published as a gist</h2>Copy the url below and enter it on<a href="http://karteikarten.benbals.ninja">karteikarten.benbals.ninja</a> to play. Save the url as you can't review it later.
+				<textarea class="gistUrl"></textarea>
+			</div><a class="btnFlat closeModal">close</a>
+		</div>
 		<script inline src="script/main.js"></script>
 	</body>
 </body>
