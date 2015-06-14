@@ -159,33 +159,54 @@ html, body {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
 }
 
+
 body {
   padding: 0;
   margin: 0;
-  font-family: "Oxygen";
+  font-family: "Roboto";
+  font-weight: 300;
 }
 
 a.btn {
-  color: #21a1e1;
-  border: 1px solid #21a1e1;
+  color: white;
   padding: 15px 40px;
-  margin: 0px 5px;
-  font-size: 18px;
-  font-family: "Oxygen", Sans-Serif;
+  margin: 5px 5px 5px 5px;
+  font-size: 15px;
+  font-family: "Roboto", Sans-Serif;
   -webkit-transition: all 0.3s ease-in-out;
           transition: all 0.3s ease-in-out;
-  background: none;
+  background: #21a1e1;
   text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 2px;
+  font-weight: 400;
+  display: inline-block;
+  box-shadow: 2px 3px 5px 0 rgba(0, 0, 0, 0.4);
 }
 a.btn:hover {
-  color: #fff;
-  background-color: #21a1e1;
   cursor: pointer;
 }
 a.btn:active {
-  background-color: #E91E63;
-  border: 1px solid transparent;
-  border-bottom: 2px solid #21a1e1;
+  box-shadow: 2px 3px 10px 0 rgba(0, 0, 0, 0.7);
+}
+
+a.btnFlat {
+  text-decoration: none;
+  padding: 7px 10px;
+  border-radius: 2px;
+  -webkit-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+a.btnFlat:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+a.btnFlat:active {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+a.btnFlat:hover, a.btnFlat:active {
+  cursor: pointer;
 }
 
 a.btnReset {
@@ -195,7 +216,7 @@ a.btnReset {
 }
 
 a.btnRight {
-  color: #4CD964;
+  background-color: #4CD964;
   border-color: #4CD964;
 }
 a.btnRight:hover, a.btnRight:active {
@@ -203,7 +224,7 @@ a.btnRight:hover, a.btnRight:active {
 }
 
 a.btnWrong {
-  color: #FF3B30;
+  background-color: #FF3B30;
   border-color: #FF3B30;
 }
 a.btnWrong:hover, a.btnWrong:active {
@@ -211,7 +232,7 @@ a.btnWrong:hover, a.btnWrong:active {
 }
 
 a.btnSmall {
-  padding: 5px;
+  padding: 7px 10px;
 }
 
 a.btnUnderline {
@@ -220,17 +241,6 @@ a.btnUnderline {
   padding: 5px 5px;
   margin: 5px 5px;
   font-size: 10pt;
-}
-
-a.noAStyle {
-  color: #21a1e1;
-  text-decoration: none;
-}
-a.noAStyle:hover {
-  cursor: pointer;
-}
-a.noAStyle:hover, a.noAStyle:active, a.noAStyle:visited {
-  color: #21a1e1;
 }
 
 .card {
@@ -268,6 +278,7 @@ a.noAStyle:hover, a.noAStyle:active, a.noAStyle:visited {
 
 h1 {
   text-align: center;
+  color: #E91E63;
 }
 
 .jsonUrl {
@@ -283,6 +294,7 @@ h1 {
 .jsonUrl:hover, .jsonUrl:focus {
   box-shadow: 0px 0px 2px #7799D0;
   border-color: #7799D0;
+  outline: none;
 }
 
 .progressbar {
@@ -436,7 +448,6 @@ h1 {
   }
 }
 
-
 .select-wrapper {
   display: -webkit-flex;
   -webkit-align-items: center;
@@ -468,6 +479,8 @@ select, .multi-select {
 option {
   padding: 1em;
   height: 1em;
+  -webkit-transition: all 0.5s ease-in-out;
+          transition: all 0.5s ease-in-out;
 }
 
 option::before {
@@ -479,13 +492,16 @@ option::before {
   width: 100%;
   height: 100%;
   line-height: 100%;
+  -webkit-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
 }
 
 option:checked::before, .multi-select input:checked + label {
-  background-color: #8ED0FF;
-  color: #333;
+  background-color: #21a1e1;
+  color: #fff;
 }
 
 option:hover::before, .multi-select label:hover {
-  background-color: #e0f2ff;
+  background-color: #90CAF9;
+  color: #fff;
 }

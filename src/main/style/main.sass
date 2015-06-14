@@ -1,4 +1,6 @@
 $blue: #21a1e1
+$pink: #E91E63
+
 $rightGreen: #4CD964
 $wrongRed: #FF3B30
 
@@ -7,27 +9,46 @@ $animationTime: 0.5s
 body
   padding: 0
   margin: 0
-  font-family: 'Oxygen'
+  font-family: 'Roboto'
+  font-weight: 300
 
 a.btn
-  color: $blue
-  border: 1px solid $blue
+  color: white
   padding: 15px 40px
-  margin: 0px 5px
-  font-size: 18px
-  font-family: 'Oxygen', Sans-Serif
+  margin: 5px 5px 5px 5px 
+  font-size: 15px
+  font-family: 'Roboto', Sans-Serif
   transition: all 0.3s ease-in-out
-  background: none
+  background: $blue
   text-decoration: none
+  text-transform: uppercase
+  border-radius: 2px
+  font-weight: 400
+  display: inline-block
+  box-shadow: 2px 3px 5px 0 rgba(0, 0, 0, 0.4)
 
   &:hover
-    color: #fff
-    background-color: $blue
     cursor: pointer
+
   &:active
-    background-color: #E91E63
-    border: 1px solid rgba(0, 0, 0, 0)
-    border-bottom: 2px solid $blue
+    box-shadow: 2px 3px 10px 0 rgba(0, 0, 0, 0.7)
+
+a.btnFlat
+  text-decoration: none
+  padding: 7px 10px
+  border-radius: 2px
+  transition: all 0.2s ease-in-out
+  text-transform: uppercase
+  font-weight: 400
+
+  &:hover
+    background-color: rgba(0, 0, 0, 0.2)
+
+  &:active
+    background-color: rgba(0, 0, 0, 0.35)  
+
+  &:hover, &:active
+    cursor: pointer
 
 a.btnReset
   position: fixed
@@ -35,19 +56,19 @@ a.btnReset
   right: 1%
 
 a.btnRight
-  color: $rightGreen
+  background-color: $rightGreen
   border-color: $rightGreen
   &:hover, &:active
     background-color: $rightGreen
 
 a.btnWrong
-  color: $wrongRed
+  background-color: $wrongRed
   border-color: $wrongRed
   &:hover, &:active
     background-color: $wrongRed
 
 a.btnSmall
-  padding: 5px
+  padding: 7px 10px
 
 a.btnUnderline
   border: none
@@ -55,16 +76,6 @@ a.btnUnderline
   padding: 5px 5px
   margin: 5px 5px
   font-size: 10pt
-
-a.noAStyle
-  color: $blue
-  text-decoration: none
-
-  &:hover
-    cursor: pointer
-
-  &:hover, &:active, &:visited
-    color: $blue
 
 .card
   margin: 0 auto
@@ -96,6 +107,7 @@ a.noAStyle
 
 h1
   text-align: center
+  color: $pink
 
 .jsonUrl
   border: 1px solid #a4a4a4
@@ -109,6 +121,7 @@ h1
   &:hover, &:focus
     box-shadow: 0px 0px 2px #7799D0
     border-color: #7799D0
+    outline: none
 
 .progressbar
   position: fixed
