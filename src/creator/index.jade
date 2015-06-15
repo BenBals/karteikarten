@@ -21,7 +21,7 @@ body
             // li new
             // li save
             li
-              a.btnFlat load
+              a.btnFlat.loadBtn load
             li
               a.btnFlat.exportBtn export
             li
@@ -40,6 +40,12 @@ body
             textarea(placeholder="Rückseite")
 
     .modal.dpn
+      .load.dpn
+        h2 Load JSON
+        | enter the JSON below to load it
+        textarea.inputJson
+        a.btn.loadGo load
+
       .export.dpn
         h2 Export as JSON
         | Copy the JSON from the field below to and paste it to where you need it. It is recommended that you use the publish option to publish via an anonymus gist. If you want to make a gist from your account copy the text below and navigate to 

@@ -19,7 +19,7 @@
 					<ul>
 						<!-- li new-->
 						<!-- li save-->
-						<li><a class="btnFlat">load</a></li>
+						<li><a class="btnFlat loadBtn">load</a></li>
 						<li><a class="btnFlat exportBtn">export</a></li>
 						<li><a class="btnFlat publishBtn">publish</a></li>
 					</ul>
@@ -45,6 +45,10 @@
 			</tbody>
 		</table>
 		<div class="modal dpn">
+			<div class="load dpn">
+				<h2>Load JSON</h2>enter the JSON below to load it
+				<textarea class="inputJson"></textarea><a class="btn loadGo">load</a>
+			</div>
 			<div class="export dpn">
 				<h2>Export as JSON</h2>Copy the JSON from the field below to and paste it to where you need it. It is recommended that you use the publish option to publish via an anonymus gist. If you want to make a gist from your account copy the text below and navigate to <a href="http://gist.github.com" target="_blank">gist.github.com</a> and paste the text in.
 				<textarea class="exportJson"></textarea>

@@ -42,6 +42,10 @@ dataObjToView = ->
 getDataJsonString = ->
   return JSON.stringify(data)
 
+load = (obj) ->
+  data = obj
+  dataObjToView()
+
 publish = ->
   publishObj = {
     description: 'karteikarten data json obj',
@@ -126,4 +130,12 @@ x('.publishBtn').on 'click', ->
   setModal('publish')
   openModal()
 
+x('.loadBtn').on 'click', ->
+  setModal('load')
+  openModal()
+
 x('.publishGo').on 'click', publish
+
+x('.loadGo').on 'click', ->
+  load(JSON.parse(x('.inputJson').val()))
+  closeModal()
