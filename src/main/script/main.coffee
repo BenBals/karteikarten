@@ -262,8 +262,12 @@ setTextOnCard = ->
     setState('selectData')
 
   else if data.unansweredCards.length > 0
-    x('.q').html data.unansweredCards[0][0].split('<script>').join('&lt;script&gt;').split('</script>').join('&lt;/script&gt;')
-    x('.a').html data.unansweredCards[0][1].split('<script>').join('&lt;script&gt;').split('</script>').join('&lt;/script&gt;')
+    scr = '<scr'
+    ipt = 'ipt>'
+    script = scr + ipt
+    sscript = '</scr' + ipt
+    x('.q').html data.unansweredCards[0][0].split(script).join('&lt;script&gt;').split(sscript).join('&lt;/script&gt;')
+    x('.a').html data.unansweredCards[0][1].split(script).join('&lt;script&gt;').split(sscript).join('&lt;/script&gt;')
 
     setState('front')
   
