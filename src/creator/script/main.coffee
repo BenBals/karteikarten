@@ -1,5 +1,9 @@
 # init
-console.log 'karteikarten creator v0.1 - ALPHA beloved ben'
+console.log 'karteikarten creator v0.2 - ALPHA concerned caro'
+
+x('').ready ->
+  loadFromLocalStorage()
+  dataObjToView()
 
 #init autosize
 autosize(x('textarea').es())
@@ -28,6 +32,7 @@ changedData = ->
       console.log 'changed last-child'
       appendNewRow()
     viewToDataObj()
+    saveToLocalStorage()
   , 5
 
 dataObjToView = ->
@@ -45,6 +50,9 @@ getDataJsonString = ->
 load = (obj) ->
   data = obj
   dataObjToView()
+
+loadFromLocalStorage = ->
+  data = JSON.parse(localStorage.data)
 
 publish = ->
   publishObj = {
@@ -78,6 +86,9 @@ publish = ->
   request.open('POST', 'https://api.github.com/gists')
   request.send(JSON.stringify(publishObj))
 
+
+saveToLocalStorage = ->
+  localStorage.data = JSON.stringify(data)
 
 
 viewToDataObj = ->
@@ -125,6 +136,11 @@ x('.closeModal').on 'click', closeModal
 x('.exportBtn').on 'click', ->
   setModal('export')
   openModal()
+
+x('.newBtn').on 'click', ->
+  data.data = []
+  saveToLocalStorage()
+  dataObjToView()
 
 x('.publishBtn').on 'click', ->
   setModal('publish')
