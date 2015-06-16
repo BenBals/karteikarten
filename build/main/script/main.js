@@ -6,7 +6,7 @@ var x;x=function(e){var t;return t={},t.selector=e,t.element=function(){return d
 
 var addQueryVar, animationTime, answer, answerRight, answerWrong, check, data, flipCard, flipElement, getMultiselectValues, getQueryVar, init, loadData, nextCard, playAgainAllCards, playAgainWrongCards, playAgian, reset, setProgressBar, setState, setTextOnCard, updateProgressBar;
 
-console.log('karteikarten v0.5.3 - BETA ceasium chameleon');
+console.log('karteikarten v0.5.4 - BETA ceasium chameleon');
 
 x('.ready').ready(function() {
   humane.clickToClose = true;
@@ -253,8 +253,8 @@ setTextOnCard = function() {
     console.log('there is no data');
     return setState('selectData');
   } else if (data.unansweredCards.length > 0) {
-    x('.q').html(data.unansweredCards[0][0]);
-    x('.a').html(data.unansweredCards[0][1]);
+    x('.q').html(data.unansweredCards[0][0].split('<script>').join('&lt;script&gt;').split('</script>').join('&lt;/script&gt;'));
+    x('.a').html(data.unansweredCards[0][1].split('<script>').join('&lt;script&gt;').split('</script>').join('&lt;/script&gt;'));
     return setState('front');
   } else {
     setState('allDone');

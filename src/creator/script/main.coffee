@@ -1,12 +1,10 @@
 # init
-console.log 'karteikarten creator v0.2 - ALPHA concerned caro'
+console.log 'karteikarten creator v0.2.1 - ALPHA concerned caro'
 
 x('').ready ->
   loadFromLocalStorage()
   dataObjToView()
-
-#init autosize
-autosize(x('textarea').es())
+  doAutosize()
 
 data = {
   config:
@@ -19,14 +17,18 @@ config = {
 }
 
 # functions
+doAutosize = ->
+  for e in x('textarea').es()
+    autosize(e)
+
 appendNewRow = ->
   tr = document.createElement('tr')
   tr.innerHTML = '<td><textarea placeholder="Vorderseite"></textarea></td><td><textarea placeholder="Rückseite"></textarea></td>'
   x('tbody').e().appendChild(tr)
   x('tbody > tr').on 'keypress', changedData
+  doAutosize()
 
 changedData = ->
-  console.log 'changedData'
   setTimeout ->
     if x('tbody > tr:last-child > td > textarea').val()[0] != '' or x('tbody > tr:last-child > td > textarea').val()[1] != ''
       console.log 'changed last-child'
@@ -45,7 +47,11 @@ dataObjToView = ->
 
 
 getDataJsonString = ->
+  viewToDataObj()
   return JSON.stringify(data)
+    .split('<script>').join('&lt;script&gt;')
+    .split('</script>').join('&lt;/script&gt;')
+    .split('\\n').join('<br>')
 
 load = (obj) ->
   data = obj
@@ -59,7 +65,7 @@ publish = ->
     description: 'karteikarten data json obj',
     public: true,
     files: {
-      'data.json': {
+      'karteikartenData.json': {
         content: getDataJsonString()
       }
     }
@@ -69,7 +75,8 @@ publish = ->
 
   request.addEventListener 'load', (e) ->
     response = JSON.parse(e.target.responseText)
-    url = response.files['data.json'].raw_url
+    console.log response
+    url = response.files['karteikartenData.json'].raw_url
     console.log response
     console.log url
     closeModal()
@@ -129,7 +136,7 @@ closeModal = ->
 
 
 # event handler
-x('tbody > tr').on 'keypress', changedData
+x('td > textarea').on 'keypress', changedData
 
 x('.closeModal').on 'click', closeModal
 

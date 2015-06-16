@@ -1,5 +1,5 @@
 # init
-console.log 'karteikarten v0.5.3 - BETA ceasium chameleon'
+console.log 'karteikarten v0.5.4 - BETA ceasium chameleon'
 x('.ready').ready ->
   # humane config
   humane.clickToClose = true
@@ -262,8 +262,8 @@ setTextOnCard = ->
     setState('selectData')
 
   else if data.unansweredCards.length > 0
-    x('.q').html data.unansweredCards[0][0]
-    x('.a').html data.unansweredCards[0][1]
+    x('.q').html data.unansweredCards[0][0].split('<script>').join('&lt;script&gt;').split('</script>').join('&lt;/script&gt;')
+    x('.a').html data.unansweredCards[0][1].split('<script>').join('&lt;script&gt;').split('</script>').join('&lt;/script&gt;')
 
     setState('front')
   
