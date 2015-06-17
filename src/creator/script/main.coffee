@@ -48,9 +48,13 @@ dataObjToView = ->
 
 getDataJsonString = ->
   viewToDataObj()
+  scr = '<scr'
+  ipt = 'ipt>'
+  script = scr + ipt
+  sscript = '</scr' + ipt
   return JSON.stringify(data)
-    .split('<script>').join('&lt;script&gt;')
-    .split('</script>').join('&lt;/script&gt;')
+    .split(script).join('&lt;script&gt;')
+    .split(sscript).join('&lt;/script&gt;')
     .split('\\n').join('<br>')
 
 load = (obj) ->

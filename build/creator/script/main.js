@@ -73,8 +73,13 @@ dataObjToView = function() {
 };
 
 getDataJsonString = function() {
+  var ipt, scr, script, sscript;
   viewToDataObj();
-  return JSON.stringify(data).split('<script>').join('&lt;script&gt;').split('</script>').join('&lt;/script&gt;').split('\\n').join('<br>');
+  scr = '<scr';
+  ipt = 'ipt>';
+  script = scr + ipt;
+  sscript = '</scr' + ipt;
+  return JSON.stringify(data).split(script).join('&lt;script&gt;').split(sscript).join('&lt;/script&gt;').split('\\n').join('<br>');
 };
 
 load = function(obj) {

@@ -447,7 +447,6 @@ h1 {
   }
 }
 
-
 .select-wrapper {
   display: -webkit-flex;
   -webkit-align-items: center;
@@ -505,3 +504,4 @@ option:hover::before, .multi-select label:hover {
   background-color: #90CAF9;
   color: #fff;
 }
+
